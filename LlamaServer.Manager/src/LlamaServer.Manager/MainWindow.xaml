@@ -1,0 +1,509 @@
+<Window x:Class="LlamaServer.Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LlamaServer Manager"
+        Height="760" Width="1140"
+        MinHeight="600" MinWidth="960"
+        WindowStartupLocation="CenterScreen">
+  <Window.Background>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+      <GradientStop Color="#FF0B1016" Offset="0"/>
+      <GradientStop Color="#FF121A22" Offset="0.45"/>
+      <GradientStop Color="#FF0F1C1A" Offset="1"/>
+    </LinearGradientBrush>
+  </Window.Background>
+
+  <DockPanel>
+    <Border DockPanel.Dock="Top" Padding="18,14,18,10" BorderBrush="{StaticResource Border}" BorderThickness="0,0,0,1">
+      <Border.Background>
+        <SolidColorBrush Color="#CC0E1318"/>
+      </Border.Background>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+          <Border Width="10" Height="10" CornerRadius="5" Background="{StaticResource Accent}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+          <StackPanel>
+            <TextBlock Text="LlamaServer Manager" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource Text}"/>
+            <TextBlock Text="Gestao e monitorizacao - sem chat" Style="{StaticResource HintText}" Margin="0,2,0,0"/>
+          </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+          <Border x:Name="HealthPill" Background="#2234D399" CornerRadius="12" Padding="10,5" Margin="0,0,8,0">
+            <StackPanel Orientation="Horizontal">
+              <Ellipse x:Name="HealthDot" Width="8" Height="8" Fill="{StaticResource Muted}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+              <TextBlock x:Name="HealthPillText" Text="API -" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource Text}" VerticalAlignment="Center"/>
+            </StackPanel>
+          </Border>
+          <TextBlock x:Name="PathStatusText" Style="{StaticResource HintText}" VerticalAlignment="Center" Opacity="0.9"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <StatusBar DockPanel.Dock="Bottom" BorderBrush="{StaticResource Border}" BorderThickness="0,1,0,0">
+      <StatusBarItem>
+        <TextBlock x:Name="StatusText" Text="Pronto"/>
+      </StatusBarItem>
+      <StatusBarItem HorizontalAlignment="Right">
+        <TextBlock x:Name="EndpointHintText" Text=""/>
+      </StatusBarItem>
+    </StatusBar>
+
+    <TabControl x:Name="Tabs" Margin="10,0,10,8">
+      <TabItem Header="Dashboard">
+        <Grid Margin="6,10,6,6">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <Border Style="{StaticResource Card}" Padding="12,10" Margin="0,0,0,12">
+            <DockPanel>
+              <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Runtime" Style="{StaticResource FieldLabel}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="RuntimeModeCombo" Width="200" Style="{StaticResource ReadableComboBox}"
+                          SelectionChanged="RuntimeModeCombo_OnSelectionChanged">
+                  <ComboBoxItem Content="Servico NSSM" Tag="Service"/>
+                  <ComboBoxItem Content="Processo local" Tag="Process"/>
+                </ComboBox>
+              </StackPanel>
+              <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Atualizar" Style="{StaticResource BtnGhost}" Click="RefreshDashboard_Click"/>
+                <Button Content="Iniciar" Style="{StaticResource BtnPrimary}" Click="Start_Click"/>
+                <Button Content="Parar" Style="{StaticResource BtnDanger}" Click="Stop_Click"/>
+                <Button Content="Reiniciar" Click="Restart_Click"/>
+                <Button Content="Update binario" Style="{StaticResource BtnGhost}" Click="UpdateBinary_Click" Margin="0"/>
+              </StackPanel>
+            </DockPanel>
+          </Border>
+
+          <Grid Grid.Row="1" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="1.1*"/>
+              <ColumnDefinition Width="16"/>
+              <ColumnDefinition Width="1.4*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock Text="Estado" Style="{StaticResource SectionTitle}"/>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+
+                  <TextBlock Grid.Row="0" Text="Servico" Style="{StaticResource HintText}" Margin="0,0,16,10"/>
+                  <TextBlock Grid.Row="0" Grid.Column="1" x:Name="ServiceStatusText" Text="-" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+                  <TextBlock Grid.Row="1" Text="Processo" Style="{StaticResource HintText}" Margin="0,0,16,10"/>
+                  <TextBlock Grid.Row="1" Grid.Column="1" x:Name="ProcessStatusText" Text="-" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+                  <TextBlock Grid.Row="2" Text="API /health" Style="{StaticResource HintText}" Margin="0,0,16,10"/>
+                  <TextBlock Grid.Row="2" Grid.Column="1" x:Name="HealthStatusText" Text="-" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+                  <TextBlock Grid.Row="3" Text="Modelos" Style="{StaticResource HintText}" Margin="0,0,16,0" VerticalAlignment="Top"/>
+                  <TextBlock Grid.Row="3" Grid.Column="1" x:Name="ModelsStatusText" Text="-" TextWrapping="Wrap" LineHeight="20"/>
+                </Grid>
+              </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource Card}">
+              <DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+                  <TextBlock Text="GPUs" Style="{StaticResource SectionTitle}" Margin="0"/>
+                  <TextBlock DockPanel.Dock="Right" Text="nvidia-smi" Style="{StaticResource HintText}"
+                             HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </DockPanel>
+                <DataGrid x:Name="GpuGrid" IsReadOnly="True" HeadersVisibility="Column" AutoGenerateColumns="False"
+                          MinHeight="120">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn Header="#" Binding="{Binding Index}" Width="40"/>
+                    <DataGridTextColumn Header="GPU" Binding="{Binding Name}" Width="*"/>
+                    <DataGridTextColumn Header="VRAM" Binding="{Binding Memory}" Width="150"/>
+                    <DataGridTextColumn Header="Util" Binding="{Binding Util}" Width="70"/>
+                  </DataGrid.Columns>
+                </DataGrid>
+              </DockPanel>
+            </Border>
+          </Grid>
+
+          <Border Grid.Row="2" Style="{StaticResource Card}">
+            <DockPanel>
+              <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                <StackPanel>
+                  <TextBlock Text="Devices CUDA" Style="{StaticResource SectionTitle}" Margin="0,0,0,2"/>
+                  <TextBlock Text="Saida de llama-server --list-devices" Style="{StaticResource HintText}"/>
+                </StackPanel>
+                <Button DockPanel.Dock="Right" Content="Listar devices" Style="{StaticResource BtnPrimary}"
+                        Click="ListDevices_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0"/>
+              </DockPanel>
+              <TextBox x:Name="DevicesText" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True"
+                       VerticalScrollBarVisibility="Auto" FontFamily="Cascadia Mono, Consolas" FontSize="12"/>
+            </DockPanel>
+          </Border>
+        </Grid>
+      </TabItem>
+
+      <!-- Dual-GPU Router -->
+      <TabItem Header="Router">
+        <Grid Margin="6,10,6,6">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <Border Style="{StaticResource Card}" Padding="14,12" Margin="0,0,0,12">
+            <DockPanel>
+              <StackPanel>
+                <TextBlock Text="Router dual-GPU" Style="{StaticResource SectionTitle}" Margin="0,0,0,4"/>
+                <TextBlock Style="{StaticResource HintText}" TextWrapping="Wrap"
+                           Text="O llama-server em modo router escolhe a placa pelo model id. Cliente OpenAI-compatible: envia &quot;model&quot;: &quot;bonsai-27b&quot; (3050) ou &quot;bonsai-2-27b&quot; (3060). Alias: fast / heavy."/>
+              </StackPanel>
+              <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Content="Atualizar mapa" Style="{StaticResource BtnGhost}" Click="RefreshRouter_Click"/>
+                <Button Content="Carregar ambos" Style="{StaticResource BtnPrimary}" Click="WarmLoadBoth_Click" Margin="0"/>
+              </StackPanel>
+            </DockPanel>
+          </Border>
+
+          <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="1.4*"/>
+              <ColumnDefinition Width="16"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Style="{StaticResource Card}">
+              <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Mapa model ? GPU" Style="{StaticResource SectionTitle}"/>
+                <DataGrid x:Name="RouterGrid" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn Header="Model id" Binding="{Binding Id}" Width="140"/>
+                    <DataGridTextColumn Header="Device" Binding="{Binding Device}" Width="80"/>
+                    <DataGridTextColumn Header="GPU" Binding="{Binding GpuName}" Width="*"/>
+                    <DataGridTextColumn Header="Estado" Binding="{Binding Status}" Width="100"/>
+                  </DataGrid.Columns>
+                </DataGrid>
+              </DockPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock Text="Como usar" Style="{StaticResource SectionTitle}"/>
+                <TextBlock Style="{StaticResource HintText}" Margin="0,0,0,8"
+                           Text="Exemplo curl (3050 / rapido):"/>
+                <TextBox x:Name="RouterCurlFastBox" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Cascadia Mono, Consolas" FontSize="11" Height="90" Margin="0,0,0,12"/>
+                <TextBlock Style="{StaticResource HintText}" Margin="0,0,0,8"
+                           Text="Exemplo curl (3060 / pesado):"/>
+                <TextBox x:Name="RouterCurlHeavyBox" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Cascadia Mono, Consolas" FontSize="11" Height="90" Margin="0,0,0,12"/>
+                <TextBlock x:Name="RouterHintText" Style="{StaticResource HintText}" TextWrapping="Wrap"/>
+              </StackPanel>
+            </Border>
+          </Grid>
+
+          <Border Grid.Row="2" Style="{StaticResource Card}" Margin="0,12,0,0" Padding="12,10">
+            <DockPanel>
+              <TextBlock x:Name="RouterStatusText" Style="{StaticResource HintText}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+              <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                <CheckBox x:Name="ModelsAutoloadChk" Content="Autoload ao arrancar" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <Button Content="Apply router (env+bat+restart)" Style="{StaticResource BtnPrimary}" Click="ApplyRouter_Click" Margin="0"/>
+              </StackPanel>
+            </DockPanel>
+          </Border>
+        </Grid>
+      </TabItem>
+
+      <TabItem Header="Global">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="6,10,6,6">
+          <StackPanel>
+            <TextBlock Text="Configuracao global (server.env)" Style="{StaticResource SectionTitle}"/>
+            <TextBlock Style="{StaticResource HintText}" Margin="0,0,0,12"
+                       Text="Valores gravados no Apply. Extra args cobre flags novas do nightly Prism."/>
+
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+
+              <Border Style="{StaticResource Card}">
+                <StackPanel>
+                  <TextBlock Text="Servidor e hardware" Style="{StaticResource SectionTitle}"/>
+                  <TextBlock Text="Host" Style="{StaticResource FieldLabel}"/>
+                  <TextBox x:Name="HostBox"/>
+                  <TextBlock Text="Port" Style="{StaticResource FieldLabel}"/>
+                  <TextBox x:Name="PortBox"/>
+                  <TextBlock Text="CUDA_VISIBLE_DEVICES" Style="{StaticResource FieldLabel}"/>
+                  <TextBox x:Name="CudaBox"/>
+                  <TextBlock Text="ModelsMax / Parallel" Style="{StaticResource FieldLabel}"/>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/><ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="ModelsMaxBox"/>
+                    <TextBox Grid.Column="2" x:Name="ParallelBox"/>
+                  </Grid>
+                  <TextBlock Text="CtxSize / GpuLayers / Threads" Style="{StaticResource FieldLabel}"/>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/><ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="CtxBox"/>
+                    <TextBox Grid.Column="2" x:Name="NglBox"/>
+                    <TextBox Grid.Column="4" x:Name="ThreadsBox"/>
+                  </Grid>
+                  <TextBlock Text="FlashAttn" Style="{StaticResource FieldLabel}"/>
+                  <TextBox x:Name="FaBox"/>
+                </StackPanel>
+              </Border>
+
+              <Border Grid.Column="2" Style="{StaticResource Card}">
+                <StackPanel>
+                  <TextBlock Text="Cache, agent e paths" Style="{StaticResource SectionTitle}"/>
+                  <TextBlock Text="CacheType K / V" Style="{StaticResource FieldLabel}"/>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/><ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="CtkBox"/>
+                    <TextBox Grid.Column="2" x:Name="CtvBox"/>
+                  </Grid>
+                  <TextBlock Text="Device / SplitMode / MainGpu" Style="{StaticResource FieldLabel}"/>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/><ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="DeviceBox"/>
+                    <TextBox Grid.Column="2" x:Name="SplitBox"/>
+                    <TextBox Grid.Column="4" x:Name="MainGpuBox"/>
+                  </Grid>
+                  <TextBlock Text="CacheReuse / Slot similarity" Style="{StaticResource FieldLabel}"/>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/><ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="CacheReuseBox"/>
+                    <TextBox Grid.Column="2" x:Name="SlotSimBox"/>
+                  </Grid>
+                  <TextBlock Text="Reasoning / Effort / Budget" Style="{StaticResource FieldLabel}"/>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/>
+                      <ColumnDefinition Width="*"/><ColumnDefinition Width="8"/><ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="ReasoningBox"/>
+                    <TextBox Grid.Column="2" x:Name="EffortBox"/>
+                    <TextBox Grid.Column="4" x:Name="BudgetBox"/>
+                  </Grid>
+                  <TextBlock Text="Tools" Style="{StaticResource FieldLabel}"/>
+                  <TextBox x:Name="ToolsBox"/>
+                  <TextBlock Text="MediaPath" Style="{StaticResource FieldLabel}"/>
+                  <TextBox x:Name="MediaPathBox"/>
+                  <TextBlock Text="UiPath" Style="{StaticResource FieldLabel}"/>
+                  <TextBox x:Name="UiPathBox"/>
+                </StackPanel>
+              </Border>
+            </Grid>
+
+            <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+              <StackPanel>
+                <TextBlock Text="Switches" Style="{StaticResource SectionTitle}"/>
+                <WrapPanel>
+                  <CheckBox x:Name="KvUnifiedChk" Content="KV unified"/>
+                  <CheckBox x:Name="CachePromptChk" Content="Cache prompt"/>
+                  <CheckBox x:Name="ReasoningPreserveChk" Content="Reasoning preserve"/>
+                  <CheckBox x:Name="AgentChk" Content="Agent"/>
+                  <CheckBox x:Name="WebUiChk" Content="WebUI"/>
+                  <CheckBox x:Name="JinjaChk" Content="Jinja"/>
+                </WrapPanel>
+                <TextBlock Text="Extra args" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="ExtraArgsBox" AcceptsReturn="True" Height="64" TextWrapping="Wrap"
+                         FontFamily="Cascadia Mono, Consolas"/>
+              </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+              <DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                  <StackPanel>
+                    <TextBlock Text="Catalogo de flags" Style="{StaticResource SectionTitle}" Margin="0,0,0,2"/>
+                    <TextBlock Text="Importado de llama-server --help" Style="{StaticResource HintText}"/>
+                  </StackPanel>
+                  <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBox x:Name="FlagFilterBox" Width="220" Margin="0,0,8,0"
+                             TextChanged="FlagFilter_OnTextChanged"
+                             ToolTip="Filtrar por flag, categoria ou descricao"/>
+                    <Button Content="Refresh from binary" Style="{StaticResource BtnPrimary}"
+                            Click="RefreshFlags_Click" Margin="0"/>
+                  </StackPanel>
+                </DockPanel>
+                <DataGrid x:Name="FlagsGrid" Height="240" IsReadOnly="True" AutoGenerateColumns="False">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn Header="Flag" Binding="{Binding Flag}" Width="160"/>
+                    <DataGridTextColumn Header="Categoria" Binding="{Binding Category}" Width="110"/>
+                    <DataGridTextColumn Header="Tipo" Binding="{Binding ValueType}" Width="70"/>
+                    <DataGridTextColumn Header="Descricao" Binding="{Binding Description}" Width="*"/>
+                  </DataGrid.Columns>
+                </DataGrid>
+              </DockPanel>
+            </Border>
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+
+      <TabItem Header="Presets">
+        <Grid Margin="6,10,6,6">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="16"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+
+          <Border Style="{StaticResource Card}" Padding="10">
+            <DockPanel>
+              <TextBlock DockPanel.Dock="Top" Text="Modelos" Style="{StaticResource SectionTitle}"/>
+              <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,10,0,0">
+                <Button Content="+" Width="40" Click="AddPreset_Click" ToolTip="Adicionar preset"/>
+                <Button Content="-" Width="40" Style="{StaticResource BtnDanger}" Click="RemovePreset_Click" ToolTip="Remover"/>
+                <Button Content="Recarregar" Style="{StaticResource BtnGhost}" Click="ReloadPresets_Click" Margin="0"/>
+              </StackPanel>
+              <ListBox x:Name="PresetList" SelectionChanged="PresetList_OnSelectionChanged" BorderThickness="0" Background="Transparent"/>
+            </DockPanel>
+          </Border>
+
+          <Border Grid.Column="2" Style="{StaticResource Card}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+              <StackPanel>
+                <TextBlock Text="Editar preset" Style="{StaticResource SectionTitle}"/>
+                <TextBlock Text="Nome (model id)" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="PresetNameBox"/>
+                <TextBlock Text="Ficheiro model (.gguf)" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="PresetModelBox"/>
+                <TextBlock Text="mmproj" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="PresetMmprojBox"/>
+                <TextBlock Text="Device (ex. CUDA0 / CUDA1)" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="PresetDeviceBox"/>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <StackPanel>
+                    <TextBlock Text="ctx-size" Style="{StaticResource FieldLabel}"/>
+                    <TextBox x:Name="PresetCtxBox"/>
+                  </StackPanel>
+                  <StackPanel Grid.Column="2">
+                    <TextBlock Text="n-gpu-layers" Style="{StaticResource FieldLabel}"/>
+                    <TextBox x:Name="PresetNglBox"/>
+                  </StackPanel>
+                </Grid>
+                <TextBlock Text="Extras (key=value por linha)" Style="{StaticResource FieldLabel}"/>
+                <TextBox x:Name="PresetExtraBox" AcceptsReturn="True" Height="130" TextWrapping="Wrap"
+                         FontFamily="Cascadia Mono, Consolas" VerticalScrollBarVisibility="Auto"/>
+                <Button Content="Guardar na lista" Style="{StaticResource BtnPrimary}"
+                        Click="SavePresetFields_Click" Margin="0,16,0,0" HorizontalAlignment="Left"/>
+              </StackPanel>
+            </ScrollViewer>
+          </Border>
+        </Grid>
+      </TabItem>
+
+      <TabItem Header="Apply">
+        <Grid Margin="6,10,6,6">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <Border Style="{StaticResource Card}" Padding="12,10" Margin="0,0,0,12">
+            <DockPanel>
+              <StackPanel>
+                <TextBlock Text="Aplicar configuracao" Style="{StaticResource SectionTitle}" Margin="0,0,0,2"/>
+                <TextBlock Style="{StaticResource HintText}"
+                           Text="Guarda server.env, presets e regenera run-server.bat. Restart aplica no servico ou processo."/>
+              </StackPanel>
+              <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Content="Preview" Style="{StaticResource BtnGhost}" Click="Preview_Click"/>
+                <Button Content="Guardar" Click="SaveAll_Click"/>
+                <Button Content="Apply + Restart" Style="{StaticResource BtnPrimary}" Click="ApplyRestart_Click" Margin="0"/>
+              </StackPanel>
+            </DockPanel>
+          </Border>
+
+          <Border Grid.Row="1" Style="{StaticResource Card}" Padding="0">
+            <TextBox x:Name="PreviewBox" IsReadOnly="True" AcceptsReturn="True" BorderThickness="0"
+                     TextWrapping="Wrap" FontFamily="Cascadia Mono, Consolas" FontSize="12.5"
+                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                     Padding="16"/>
+          </Border>
+          <TextBlock Grid.Row="2" x:Name="ApplyStatusText" Style="{StaticResource HintText}" Margin="4,10,4,0"/>
+        </Grid>
+      </TabItem>
+
+      <TabItem Header="Logs">
+        <Grid Margin="6,10,6,6">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <Border Style="{StaticResource Card}" Padding="12,10" Margin="0,0,0,12">
+            <DockPanel>
+              <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="Tail servico" Style="{StaticResource BtnPrimary}" Click="TailServiceLogs_Click"/>
+                <Button Content="Stdout processo" Click="TailProcessLogs_Click"/>
+                <Button Content="Limpar" Style="{StaticResource BtnGhost}" Click="ClearLogs_Click"/>
+              </StackPanel>
+              <CheckBox x:Name="AutoTailChk" Content="Auto-refresh (5s)" DockPanel.Dock="Right"
+                        HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0"/>
+            </DockPanel>
+          </Border>
+          <Border Grid.Row="1" Style="{StaticResource Card}" Padding="0">
+            <TextBox x:Name="LogsBox" IsReadOnly="True" AcceptsReturn="True" TextWrapping="NoWrap"
+                     BorderThickness="0" Padding="14"
+                     FontFamily="Cascadia Mono, Consolas" FontSize="12"
+                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+          </Border>
+        </Grid>
+      </TabItem>
+
+      <TabItem Header="Settings">
+        <StackPanel Margin="6,10,6,6" MaxWidth="720" HorizontalAlignment="Left">
+          <Border Style="{StaticResource Card}">
+            <StackPanel>
+              <TextBlock Text="Pasta LlamaServer" Style="{StaticResource SectionTitle}"/>
+              <TextBlock Style="{StaticResource HintText}" Margin="0,0,0,12"
+                         Text="O Manager nao reinstala o binario - aponta para o stack existente (normalmente C:\LlamaServer)."/>
+              <TextBlock Text="Caminho" Style="{StaticResource FieldLabel}"/>
+              <DockPanel>
+                <Button DockPanel.Dock="Right" Content="Procurar..." Click="BrowseRoot_Click" Margin="8,0,0,0"/>
+                <TextBox x:Name="RootPathBox"/>
+              </DockPanel>
+              <Button Content="Usar este caminho" Style="{StaticResource BtnPrimary}"
+                      Click="ApplyRoot_Click" Margin="0,14,0,0" HorizontalAlignment="Left"/>
+            </StackPanel>
+          </Border>
+          <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+            <StackPanel>
+              <TextBlock Text="Deteccao" Style="{StaticResource SectionTitle}"/>
+              <TextBlock x:Name="DetectInfoText" Style="{StaticResource HintText}" FontFamily="Cascadia Mono, Consolas"/>
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</Window>

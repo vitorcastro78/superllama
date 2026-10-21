@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <AssemblyName>LlamaServer.Manager</AssemblyName>
+    <RootNamespace>LlamaServer.Manager</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>LlamaServer Manager</Product>
+    <Description>Manage all llama-server options — no chat</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LlamaServer.Manager.Core\LlamaServer.Manager.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\tools\llama-server-help.txt" Link="llama-server-help.txt"
+          CopyToOutputDirectory="PreserveNewest"
+          Condition="Exists('..\..\tools\llama-server-help.txt')" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <AssemblyName>LlamaServer.Tray</AssemblyName>
+    <RootNamespace>LlamaServer.Tray</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>LlamaServer Tray</Product>
+    <Description>System tray companion for LlamaServer Manager</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LlamaServer.Manager.Core\LlamaServer.Manager.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="app.ico" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

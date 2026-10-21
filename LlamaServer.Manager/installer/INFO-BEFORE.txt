@@ -1,0 +1,14 @@
+LlamaServer Manager + Tray
+==========================
+
+Esta instalacao inclui:
+  • LlamaServer Manager — UI de gestao (sem chat)
+  • LlamaServer Tray — icone na area de notificacao (Start/Stop/Restart, abrir Manager)
+
+NAO instala o binario llama-server — usa o stack em C:\LlamaServer.
+
+Apos instalar, podes marcar:
+  • Iniciar Tray com o Windows
+  • Iniciar o Tray agora
+
+Pedido de admin (UAC) so para accoes do servico NSSM.

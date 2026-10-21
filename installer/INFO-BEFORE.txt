@@ -1,0 +1,29 @@
+SuperLlama (TurboQuant)
+=======================
+
+Esta instalacao inclui:
+  • SuperLlama llama-server CUDA com KV TurboQuant (turbo2 / turbo3 / turbo4)
+  • Perfil default de producao: CacheTypeK=turbo4, CacheTypeV=turbo3, ctx 90k
+  • llama.ui (interface web) em C:\LlamaServer\ui\llama.ui
+  • LlamaServer Manager (admin: flags/presets)
+  • LlamaServer Tray (icone na area de notificacao)
+  • Inference Monitor (GPU + tok/s) em C:\LlamaServer\tools\inference-monitor
+  • Thinking Router (GLiNER on/off) opcional em C:\LlamaServer\tools\thinking-router
+
+Requisitos:
+  • Windows 10/11 x64
+  • GPU NVIDIA + driver atual
+  • NSSM (incluido no pacote; usado para o servico Windows)
+  • Python 3.10+ para Inference Monitor e Thinking Router
+    https://www.python.org/downloads/  (marcar "Add python.exe to PATH")
+  • Internet na 1ª instalacao do Thinking Router (pip: torch + gliner2)
+
+Apos instalar, ajusta ModelsDir / Model / MediaPath em
+C:\LlamaServer\config\server.env (placeholders C:\Models\gguf).
+
+Preset opcional ~6GB VRAM: config\server-moe-6gb.env + models-preset-moe-6gb.ini
+
+Endpoints padrao:
+  llama-server / UI  http://127.0.0.1:11434/
+  Inference Monitor  http://127.0.0.1:11436/
+  Thinking Router    http://127.0.0.1:11437/   (opcional; Kortex tipico: tunel :11434)

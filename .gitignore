@@ -1,0 +1,42 @@
+# Build / packaging outputs (bins and Setup go to GitHub Releases)
+dist/
+staging/
+
+# CUDA / llama-server binaries (never commit)
+**/bin/*.exe
+**/bin/*.dll
+**/bin/*.pdb
+**/bin/*.lib
+**/bin/*.exp
+
+# .NET
+**/bin/
+**/obj/
+**/publish/
+*.user
+*.suo
+.vs/
+
+# Python
+.venv/
+**/__pycache__/
+*.pyc
+hf-cache/
+logs/
+
+# Models and local runtime
+*.gguf
+*.bin
+!installer/**
+*.log
+
+# OS / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
+
+# Local overrides
+config/server.env.local
+config/llama.env.local

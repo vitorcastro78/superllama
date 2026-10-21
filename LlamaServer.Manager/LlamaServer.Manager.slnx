@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LlamaServer.Manager.Core/LlamaServer.Manager.Core.csproj" />
+    <Project Path="src/LlamaServer.Manager/LlamaServer.Manager.csproj" />
+    <Project Path="src/LlamaServer.Tray/LlamaServer.Tray.csproj" />
+  </Folder>
+</Solution>
