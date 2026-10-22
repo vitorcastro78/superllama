@@ -1,0 +1,46 @@
+﻿=== clean restore 2026-10-21T12:32:06.0069538+01:00 ===
+ERROR: The process "llama-server.exe" with PID 3548 could not be terminated.
+Reason: There is no running instance of the task.
+System.Management.Automation.RemoteException
+ERROR: The process "llama-server.exe" with PID 3956 could not be terminated.
+Reason: There is no running instance of the task.
+System.Management.Automation.RemoteException
+ERROR: The process "llama-server.exe" with PID 12996 could not be terminated.
+Reason: There is no running instance of the task.
+System.Management.Automation.RemoteException
+llama-server left=3
+BAT="C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen_Qwen3.6-35B-A3B-IQ2_S.gguf" --alias qwen3.6-35b --host 127.0.0.1 --port 11434 -ngl 99 -c 92160 --n-predict 32768 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui
+Model=Model=D:\Models\gguf\Qwen_Qwen3.6-35B-A3B-IQ2_S.gguf
+Ctx=CtxSize=92160
+Extra=ExtraArgs=
+started, waiting load...
+[0] status=Running procs=4 wait=Unable to connect to the remote server
+[1] status=Running procs=4 wait=Unable to connect to the remote server
+[2] status=Running procs=4 wait=Unable to connect to the remote server
+[3] status=Running procs=4 wait=Unable to connect to the remote server
+[4] status=Running procs=4 wait=Unable to connect to the remote server
+[5] status=Running procs=4 wait=Unable to connect to the remote server
+[6] status=Stopped procs=4 wait=Unable to connect to the remote server
+ERR 0.00.057.169 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+ERR 0.00.155.990 W srv  llama_server: -----------------
+ERR 0.00.155.993 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+ERR 0.00.155.995 W srv  llama_server: this can be a security risk (cross-origin attacks)
+ERR 0.00.155.995 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+ERR 0.00.155.995 W srv  llama_server: -----------------
+ERR 0.00.172.651 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+ERR 0.06.893.053 I common_speculative_init_result: creating MTP draft context against the target model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+ERR 0.06.921.203 W srv    load_model: cache_reuse is not supported by this context, it will be disabled
+ERR 0.06.960.825 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 32768, kv_unified = 'false'
+ERR 0.07.039.932 I srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+ERR 0.07.046.740 I srv          init: chat template supports preserving reasoning, consider enabling it via --reasoning-preserve
+ERR 0.07.046.756 I srv  llama_server: model loaded
+ERR 0.07.046.758 I srv  llama_server: listening on http://127.0.0.1:11434
+ERR 0.10.720.198 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+ERR 0.10.720.212 I srv        update: prompt cache: 0 prompts, 0.0 MiB (limit 8192.0 MiB, 32768 tokens)
+ERR 0.10.720.415 I slot launch_slot_: id  0 | task 3 | processing task, is_child = 0
+ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+ERR 0.11.296.644 E CUDA error: out of memory
+ERR 0.11.296.648 E   current device: 0, in function ggml_cuda_graph_evaluate_and_capture at D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:5838
+ERR 0.11.296.648 E   cudaGraphLaunch(graph->instance, cuda_ctx->stream())
+ERR 0.13.360.628 W srv          stop: cancel task, id_task = 8
+=== FAIL stopped ===

@@ -29,6 +29,7 @@ logs/
 *.bin
 !installer/**
 *.log
+!docs/runs/**/*.log
 
 # OS / editor
 Thumbs.db

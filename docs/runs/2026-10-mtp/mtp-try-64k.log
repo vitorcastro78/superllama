@@ -1,0 +1,21 @@
+2026-10-21T12:20:31.3212821+01:00 === try reach 64k ===
+2026-10-21T12:20:31.3368767+01:00 Backup=C:\LlamaServer\config\backup-pre-64k-20261021-122031
+2026-10-21T12:20:31.3551601+01:00 --- A turbo2 forced @32768 ---
+2026-10-21T12:20:38.5070432+01:00   BAT="C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 32768 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo2 -ctv turbo2 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0
+2026-10-21T12:20:46.5224484+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T12:20:50.6161443+01:00   health=ok gpu=0, 11710, 12288 | 1, 535, 8192
+2026-10-21T12:23:50.7759952+01:00   bench tok/s= draft=/
+2026-10-21T12:23:50.7759952+01:00   RESULT=PASS
+2026-10-21T12:23:50.7759952+01:00 --- A2 turbo2 forced @65536 ---
+2026-10-21T12:23:59.2099779+01:00   BAT="C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 65536 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo2 -ctv turbo2 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0
+2026-10-21T12:24:13.2099362+01:00   wait status=Running The operation has timed out.
+2026-10-21T12:24:13.2099362+01:00   FAIL CUDA
+2026-10-21T12:24:13.2255631+01:00   ERR 0.10.720.212 I srv        update: prompt cache: 0 prompts, 0.0 MiB (limit 8192.0 MiB, 32768 tokens)
+2026-10-21T12:24:13.2255631+01:00   ERR 0.10.720.415 I slot launch_slot_: id  0 | task 3 | processing task, is_child = 0
+2026-10-21T12:24:13.2255631+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T12:24:13.2255631+01:00   ERR 0.11.296.644 E CUDA error: out of memory
+2026-10-21T12:24:13.2255631+01:00   ERR 0.11.296.648 E   current device: 0, in function ggml_cuda_graph_evaluate_and_capture at D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:5838
+2026-10-21T12:24:13.2255631+01:00   ERR 0.11.296.648 E   cudaGraphLaunch(graph->instance, cuda_ctx->stream())
+2026-10-21T12:24:13.2255631+01:00   ERR 0.13.360.628 W srv          stop: cancel task, id_task = 8
+2026-10-21T12:24:13.2255631+01:00   ERR 
+2026-10-21T12:24:13.2255631+01:00   RESULT=FAIL

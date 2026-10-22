@@ -1,0 +1,13 @@
+=== back to IQ2 MTP 16k 2026-10-21T11:08:00.7925845+01:00 ===
+bak=C:\LlamaServer\config\backup-pre-q4kxl-20261021-105816
+wait The remote server returned an error: (503) Server Unavailable.
+wait The remote server returned an error: (503) Server Unavailable.
+wait The remote server returned an error: (503) Server Unavailable.
+wait The remote server returned an error: (503) Server Unavailable.
+wait The remote server returned an error: (503) Server Unavailable.
+wait The remote server returned an error: (503) Server Unavailable.
+health {"status":"ok"}
+bench tok/s=86,3 draft=10/10
+n_ctx=16384 model=Qwen3.6-35B-A3B-UD-IQ2_M.gguf
+Llama=Running Tunnel=Running
+=== done ===

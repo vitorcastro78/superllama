@@ -1,0 +1,10 @@
+=== revert to fast MTP 16k 2026-10-21T10:42:00.5745989+01:00 ===
+bak=C:\LlamaServer\config\backup-pre-highctx-plan-20261021-103836
+wait The remote server returned an error: (503) Server Unavailable.
+wait The remote server returned an error: (503) Server Unavailable.
+health {"status":"ok"}
+bench tok/s=106,8 draft=10/10
+n_ctx=16384 model=Qwen3.6-35B-A3B-UD-IQ2_M.gguf
+gpu=0, 11658 MiB, 12288 MiB 1, 511 MiB, 8192 MiB
+Llama=Running Tunnel=Running
+=== done ===

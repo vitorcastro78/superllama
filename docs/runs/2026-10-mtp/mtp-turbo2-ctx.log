@@ -1,0 +1,66 @@
+2026-10-21T11:16:21.3836253+01:00 === aggressive TurboQuant (turbo2) ctx sweep ===
+2026-10-21T11:16:21.4074013+01:00 Backup=C:\LlamaServer\config\backup-pre-turbo2-20261021-111621 (baseline turbo4/turbo3 @16k)
+2026-10-21T11:16:21.4074013+01:00 --- TRY turbo2/turbo2 ctx=16384 ---
+2026-10-21T11:16:28.8779403+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 16384 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo2 -ctv turbo2 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0
+2026-10-21T11:16:35.8598601+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:16:39.9538431+01:00   health=ok gpu=0, 11630, 12288 | 1, 590, 8192
+2026-10-21T11:16:40.6099136+01:00   bench tok/s=86,3 draft=9/10
+2026-10-21T11:16:40.6099136+01:00   PASS n_ctx=16384
+2026-10-21T11:16:40.6255411+01:00 --- TRY turbo2/turbo2 ctx=24576 ---
+2026-10-21T11:16:47.6880770+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 24576 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo2 -ctv turbo2 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0
+2026-10-21T11:16:54.2663204+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:16:59.2065074+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:16:59.2065074+01:00   FAIL signature
+2026-10-21T11:16:59.2065074+01:00   ERR 0.00.169.422 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:16:59.2221347+01:00   ERR 0.06.839.676 W llama_kv_cache: auto-asymmetric: GQA ratio 8:1 (n_head=16, n_head_kv=2) — upgrading K from turbo2 to q8_0 to prevent quality degradation. Disable with TURBO_AUTO_ASYMMETRIC=0
+2026-10-21T11:16:59.2221347+01:00   ERR 0.06.980.887 I common_speculative_init_result: creating MTP draft context against the target model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:16:59.2221347+01:00   ERR 0.06.997.838 W srv    load_model: cache_reuse is not supported by this context, it will be disabled
+2026-10-21T11:16:59.2221347+01:00   ERR 0.07.034.328 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 24576, kv_unified = 'false'
+2026-10-21T11:16:59.2221347+01:00   ERR 0.07.066.261 E CUDA error: the resource allocation failed
+2026-10-21T11:16:59.2221347+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T11:16:59.2221347+01:00   ERR 0.07.066.429 E   current device: 0, in function cublas_handle at D:\src\llama.cpp\ggml\src\ggml-cuda\common.cuh:1621
+2026-10-21T11:16:59.2221347+01:00   ERR 0.07.066.430 E   cublasCreate_v2(&cublas_handles[device])
+2026-10-21T11:16:59.2221347+01:00   ERR 
+2026-10-21T11:16:59.2351403+01:00   FAIL load
+2026-10-21T11:16:59.2351403+01:00 --- TRY turbo2/turbo3 ctx=16384 ---
+2026-10-21T11:17:07.9382500+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 16384 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo2 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0
+2026-10-21T11:17:19.9227521+01:00   wait status=Running The operation has timed out.
+2026-10-21T11:17:19.9227521+01:00   FAIL signature
+2026-10-21T11:17:19.9227521+01:00   ERR 0.00.169.422 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:17:19.9227521+01:00   ERR 0.06.839.676 W llama_kv_cache: auto-asymmetric: GQA ratio 8:1 (n_head=16, n_head_kv=2) — upgrading K from turbo2 to q8_0 to prevent quality degradation. Disable with TURBO_AUTO_ASYMMETRIC=0
+2026-10-21T11:17:19.9227521+01:00   ERR 0.06.980.887 I common_speculative_init_result: creating MTP draft context against the target model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:17:19.9227521+01:00   ERR 0.06.997.838 W srv    load_model: cache_reuse is not supported by this context, it will be disabled
+2026-10-21T11:17:19.9227521+01:00   ERR 0.07.034.328 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 24576, kv_unified = 'false'
+2026-10-21T11:17:19.9383701+01:00   ERR 0.07.066.261 E CUDA error: the resource allocation failed
+2026-10-21T11:17:19.9383701+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T11:17:19.9383701+01:00   ERR 0.07.066.429 E   current device: 0, in function cublas_handle at D:\src\llama.cpp\ggml\src\ggml-cuda\common.cuh:1621
+2026-10-21T11:17:19.9383701+01:00   ERR 0.07.066.430 E   cublasCreate_v2(&cublas_handles[device])
+2026-10-21T11:17:19.9383701+01:00   ERR 
+2026-10-21T11:17:19.9383701+01:00   FAIL load
+2026-10-21T11:17:19.9383701+01:00 === settle lastGood ctx=16384 turbo2/turbo2 ===
+2026-10-21T11:17:35.2474406+01:00   wait status=Running The operation has timed out.
+2026-10-21T11:17:35.2474406+01:00   FAIL signature
+2026-10-21T11:17:35.2474406+01:00   ERR 0.00.169.422 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:17:35.2474406+01:00   ERR 0.06.839.676 W llama_kv_cache: auto-asymmetric: GQA ratio 8:1 (n_head=16, n_head_kv=2) — upgrading K from turbo2 to q8_0 to prevent quality degradation. Disable with TURBO_AUTO_ASYMMETRIC=0
+2026-10-21T11:17:35.2474406+01:00   ERR 0.06.980.887 I common_speculative_init_result: creating MTP draft context against the target model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:17:35.2474406+01:00   ERR 0.06.997.838 W srv    load_model: cache_reuse is not supported by this context, it will be disabled
+2026-10-21T11:17:35.2474406+01:00   ERR 0.07.034.328 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 24576, kv_unified = 'false'
+2026-10-21T11:17:35.2630588+01:00   ERR 0.07.066.261 E CUDA error: the resource allocation failed
+2026-10-21T11:17:35.2630588+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T11:17:35.2669266+01:00   ERR 0.07.066.429 E   current device: 0, in function cublas_handle at D:\src\llama.cpp\ggml\src\ggml-cuda\common.cuh:1621
+2026-10-21T11:17:35.2669266+01:00   ERR 0.07.066.430 E   cublasCreate_v2(&cublas_handles[device])
+2026-10-21T11:17:35.2669266+01:00   ERR 
+2026-10-21T11:17:35.2669266+01:00 Restoring baseline C:\LlamaServer\config\backup-pre-turbo2-20261021-111621
+2026-10-21T11:17:50.9230825+01:00   wait status=Running The operation has timed out.
+2026-10-21T11:17:50.9230825+01:00   FAIL signature
+2026-10-21T11:17:50.9230825+01:00   ERR 0.00.169.422 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:17:50.9230825+01:00   ERR 0.06.839.676 W llama_kv_cache: auto-asymmetric: GQA ratio 8:1 (n_head=16, n_head_kv=2) — upgrading K from turbo2 to q8_0 to prevent quality degradation. Disable with TURBO_AUTO_ASYMMETRIC=0
+2026-10-21T11:17:50.9230825+01:00   ERR 0.06.980.887 I common_speculative_init_result: creating MTP draft context against the target model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:17:50.9387092+01:00   ERR 0.06.997.838 W srv    load_model: cache_reuse is not supported by this context, it will be disabled
+2026-10-21T11:17:50.9387092+01:00   ERR 0.07.034.328 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 24576, kv_unified = 'false'
+2026-10-21T11:17:50.9387092+01:00   ERR 0.07.066.261 E CUDA error: the resource allocation failed
+2026-10-21T11:17:50.9387092+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T11:17:50.9387092+01:00   ERR 0.07.066.429 E   current device: 0, in function cublas_handle at D:\src\llama.cpp\ggml\src\ggml-cuda\common.cuh:1621
+2026-10-21T11:17:50.9387092+01:00   ERR 0.07.066.430 E   cublasCreate_v2(&cublas_handles[device])
+2026-10-21T11:17:50.9387092+01:00   ERR 
+2026-10-21T11:17:50.9387092+01:00 === done ===

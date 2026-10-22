@@ -1,0 +1,10 @@
+=== restore single-GPU 16k 2026-10-21T10:32:36.9751952+01:00 ===
+bak=C:\LlamaServer\config\backup-pre-dualgpu-mtp-20261021-103144
+wait The remote server returned an error: (503) Server Unavailable.
+wait The remote server returned an error: (503) Server Unavailable.
+health {"status":"ok"}
+n_ctx=16384 model=Qwen3.6-35B-A3B-UD-IQ2_M.gguf
+gpu=0, 11598 MiB, 12288 MiB 1, 507 MiB, 8192 MiB
+Llama=Running Tunnel=Running
+env: Device=CUDA0
+=== done ===

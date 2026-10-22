@@ -1,0 +1,88 @@
+2026-10-21T10:58:16.2148384+01:00 === Q4_K_XL MTP + n-cpu-moe test ===
+2026-10-21T10:58:16.2304647+01:00 Backup=C:\LlamaServer\config\backup-pre-q4kxl-20261021-105816
+2026-10-21T10:58:16.2304647+01:00 --- TRY Q4_K_XL ncmoe=30 ctx=16384 ---
+2026-10-21T10:58:23.5769506+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf" --alias qwen3.6-35b-q4-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 16384 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 30
+2026-10-21T10:58:31.5768265+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:58:36.5892668+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:58:41.6052741+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:58:46.6244378+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:58:51.6329004+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:58:56.6388343+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:59:01.6473249+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:59:06.6540628+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:59:11.7483155+01:00   health=ok gpu=0, 8118, 12288 | 1, 485, 8192
+2026-10-21T10:59:21.5116898+01:00   bench tok/s=16,2 draft=52/53 pp=4,9
+2026-10-21T10:59:21.5116898+01:00   preview=Thinking Process:
+
+1.  **Deconstruct the request:**
+    *   Topic: Binary tree.
+    *   Constraint: 2 short sentences.
+    *   Goal: Explain what it is.
+
+2.  **
+2026-10-21T10:59:21.5273162+01:00   PASS n_ctx=16384
+2026-10-21T10:59:21.5273162+01:00 --- TRY Q4_K_XL ncmoe=30 ctx=32768 ---
+2026-10-21T10:59:29.0974330+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf" --alias qwen3.6-35b-q4-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 32768 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 30
+2026-10-21T10:59:37.0594006+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:59:42.0746179+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:59:47.0919614+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:59:52.1023648+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:59:57.1743452+01:00   health=ok gpu=0, 8386, 12288 | 1, 485, 8192
+2026-10-21T11:00:05.5860201+01:00   bench tok/s=14,8 draft=52/53 pp=7,8
+2026-10-21T11:00:05.5860201+01:00   preview=Thinking Process:
+
+1.  **Deconstruct the request:**
+    *   Topic: Binary tree.
+    *   Constraint: 2 short sentences.
+    *   Goal: Explain what it is.
+
+2.  **
+2026-10-21T11:00:05.5860201+01:00   PASS n_ctx=32768
+2026-10-21T11:00:05.5860201+01:00 --- TRY Q4_K_XL ncmoe=30 ctx=49152 ---
+2026-10-21T11:00:13.1630332+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf" --alias qwen3.6-35b-q4-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 49152 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 30
+2026-10-21T11:00:21.1214129+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:00:26.1334526+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:00:31.1512374+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:00:36.1602221+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:00:41.2315583+01:00   health=ok gpu=0, 8522, 12288 | 1, 485, 8192
+2026-10-21T11:00:51.0336659+01:00   bench tok/s=11,7 draft=52/53 pp=7,8
+2026-10-21T11:00:51.0336659+01:00   preview=Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Binary tree
+   - **Requirement:** Explain in exactly 2 short sentences
+   - **Goal:** Cl
+2026-10-21T11:00:51.0492919+01:00   PASS n_ctx=49152
+2026-10-21T11:00:51.0492919+01:00 --- TRY Q4_K_XL ncmoe=30 ctx=65536 ---
+2026-10-21T11:00:58.6361845+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf" --alias qwen3.6-35b-q4-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 65536 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 30
+2026-10-21T11:01:06.5942634+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:01:11.5993193+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:01:16.6068624+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:01:21.6192215+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:01:26.6211192+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:01:31.6953766+01:00   health=ok gpu=0, 8656, 12288 | 1, 485, 8192
+2026-10-21T11:01:41.3544919+01:00   bench tok/s=12,0 draft=52/53 pp=7,7
+2026-10-21T11:01:41.3544919+01:00   preview=Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Binary tree
+   - **Requirement:** Explain in exactly 2 short sentences
+   - **Goal:** Cl
+2026-10-21T11:01:41.3701199+01:00   PASS n_ctx=65536
+2026-10-21T11:01:41.3701199+01:00 Settling on ctx=65536 ncmoe=30
+2026-10-21T11:01:50.9689948+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:01:55.9835152+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:02:00.9937204+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:02:06.0102231+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:02:11.0274459+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:02:16.1094323+01:00   health=ok gpu=0, 8656, 12288 | 1, 485, 8192
+2026-10-21T11:02:27.4920085+01:00   bench tok/s=11,7 draft=52/53 pp=7,7
+2026-10-21T11:02:27.4920085+01:00   preview=Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Binary tree
+   - **Requirement:** Explain in exactly 2 short sentences
+   - **Goal:** Cl
+2026-10-21T11:02:27.5545145+01:00 FINAL gpu=0, 8702, 12288 | 1, 485, 8192
+2026-10-21T11:02:27.5701428+01:00 FINAL Model=D:\Models\gguf\Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf || Profile=mtp-q4kxl-ncmoe30-ctx65536
+2026-10-21T11:02:27.5701428+01:00 === done ===

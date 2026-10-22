@@ -1,0 +1,48 @@
+2026-10-21T10:38:36.3849930+01:00 === MTP high-ctx plan (ordered) ===
+2026-10-21T10:38:36.4162444+01:00 Backup=C:\LlamaServer\config\backup-pre-highctx-plan-20261021-103836 (baseline single-GPU 16k MTP)
+2026-10-21T10:38:36.4162444+01:00 --- TRY: step1 draft-device CUDA1 @16k ---
+2026-10-21T10:38:44.0586181+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 16384 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --spec-draft-device CUDA1
+2026-10-21T10:38:51.7303347+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:38:51.7375493+01:00   FAIL signature in err
+2026-10-21T10:38:51.7445547+01:00   ERR 0.00.282.438 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+2026-10-21T10:38:51.7445547+01:00   ERR 0.00.282.439 W srv  llama_server: this can be a security risk (cross-origin attacks)
+2026-10-21T10:38:51.7445547+01:00   ERR 0.00.282.440 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+2026-10-21T10:38:51.7445547+01:00   ERR 0.00.282.440 W srv  llama_server: -----------------
+2026-10-21T10:38:51.7445547+01:00   ERR 0.00.297.963 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T10:38:51.7445547+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T10:38:51.7616929+01:00   ERR 0.03.199.688 E CUDA error: out of memory
+2026-10-21T10:38:51.7616929+01:00   ERR 0.03.199.692 E   current device: 0, in function ggml_backend_cuda_buffer_set_tensor at D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:915
+2026-10-21T10:38:51.7616929+01:00   ERR 0.03.199.693 E   cudaStreamSynchronize(((cudaStream_t)0x2))
+2026-10-21T10:38:51.7616929+01:00   ERR 
+2026-10-21T10:38:51.7616929+01:00   RESULT=FAIL step1 draft-device CUDA1 @16k
+2026-10-21T10:38:51.7616929+01:00 Step1 failed - continue to step2 n-cpu-moe
+2026-10-21T10:38:51.7616929+01:00 Current live ctx=0
+2026-10-21T10:38:51.7756961+01:00 --- TRY: step2 n-cpu-moe=20 ctx=32768 ---
+2026-10-21T10:38:59.4946803+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 32768 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 20
+2026-10-21T10:39:06.4633581+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:39:10.5496049+01:00   health=ok status=Running gpu=0, 7254, 12288 | 1, 505, 8192
+2026-10-21T10:39:11.7828078+01:00   bench tok/s=44,7 draft=10/10
+2026-10-21T10:39:11.7964430+01:00   n_ctx=32768 RESULT=PASS step2 n-cpu-moe=20 ctx=32768
+2026-10-21T10:39:11.7969480+01:00 --- TRY: step2 n-cpu-moe=20 ctx=49152 ---
+2026-10-21T10:39:19.0728541+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 49152 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 20
+2026-10-21T10:39:26.1329294+01:00   health=ok status=Running gpu=0, 7396, 12288 | 1, 505, 8192
+2026-10-21T10:39:27.1392757+01:00   bench tok/s=34,2 draft=10/10
+2026-10-21T10:39:27.1548982+01:00   n_ctx=49152 RESULT=PASS step2 n-cpu-moe=20 ctx=49152
+2026-10-21T10:39:27.1548982+01:00 --- TRY: step2 n-cpu-moe=20 ctx=65536 ---
+2026-10-21T10:39:34.0386929+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 65536 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 20
+2026-10-21T10:39:41.0889737+01:00   health=ok status=Running gpu=0, 7562, 12288 | 1, 505, 8192
+2026-10-21T10:39:42.0828656+01:00   bench tok/s=35,2 draft=10/10
+2026-10-21T10:39:42.0868662+01:00   n_ctx=65536 RESULT=PASS step2 n-cpu-moe=20 ctx=65536
+2026-10-21T10:39:42.0890033+01:00 --- TRY: step2 n-cpu-moe=20 ctx=81920 ---
+2026-10-21T10:39:48.9639041+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 81920 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 20
+2026-10-21T10:39:55.9794494+01:00   health=ok status=Running gpu=0, 7730, 12288 | 1, 505, 8192
+2026-10-21T10:39:56.8796874+01:00   bench tok/s=36,9 draft=10/10
+2026-10-21T10:39:56.8796874+01:00   n_ctx=81920 RESULT=PASS step2 n-cpu-moe=20 ctx=81920
+2026-10-21T10:39:56.8796874+01:00 --- TRY: step2 n-cpu-moe=20 ctx=92160 ---
+2026-10-21T10:40:04.1676191+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 92160 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --n-cpu-moe 20
+2026-10-21T10:40:11.1829612+01:00   health=ok status=Running gpu=0, 7834, 12288 | 1, 505, 8192
+2026-10-21T10:40:12.0216280+01:00   bench tok/s=38,2 draft=10/10
+2026-10-21T10:40:12.0246287+01:00   n_ctx=92160 RESULT=PASS step2 n-cpu-moe=20 ctx=92160
+2026-10-21T10:40:13.6751088+01:00 FINAL n_ctx=92160 model=Qwen3.6-35B-A3B-UD-IQ2_M.gguf gpu=0, 7890, 12288 | 1, 505, 8192
+2026-10-21T10:40:13.6905173+01:00 FINAL env: Device=CUDA0 || Profile=mtp-ncmoe20-ctx92160
+2026-10-21T10:40:13.6905173+01:00 === plan done ===

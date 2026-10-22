@@ -1,0 +1,2 @@
+iq2mtp-32k-turbo3k-turbo2v
+IQ2_M MTP turbo3/turbo2 ctx 32768 draft-n-max 1

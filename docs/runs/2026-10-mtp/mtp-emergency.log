@@ -1,0 +1,23 @@
+=== emergency 2026-10-21T11:24:28.8331029+01:00 ===
+ERROR: The process "llama-server.exe" with PID 6424 could not be terminated.
+Reason: There is no running instance of the task.
+System.Management.Automation.RemoteException
+ERROR: The process "llama-server.exe" with PID 6364 could not be terminated.
+Reason: There is no running instance of the task.
+System.Management.Automation.RemoteException
+ERROR: The process "llama-server.exe" with PID 9160 could not be terminated.
+Reason: There is no running instance of the task.
+System.Management.Automation.RemoteException
+ERROR: The process "llama-server.exe" with PID 13172 could not be terminated.
+Reason: There is no running instance of the task.
+System.Management.Automation.RemoteException
+ERROR: The process "llama-server.exe" with PID 18124 could not be terminated.
+Reason: There is no running instance of the task.
+System.Management.Automation.RemoteException
+ERROR: The process "llama-server-impl.exe" not found.
+Stop-Process 6364 llama-server
+Stop-Process 6424 llama-server
+Stop-Process 9160 llama-server
+Stop-Process 13172 llama-server
+Stop-Process 18124 llama-server
+remaining llama-server count=5

@@ -1,0 +1,64 @@
+2026-10-21T10:11:32.0868011+01:00 === MTP test switch start ===
+2026-10-21T10:11:32.1119542+01:00 Backup=C:\LlamaServer\config\backup-pre-mtp-test-20261021-101132
+2026-10-21T10:11:32.1329591+01:00 server.env updated for MTP test
+2026-10-21T10:11:32.4161991+01:00 run-server.bat regenerated
+2026-10-21T10:11:32.4318258+01:00 BAT: @echo off
+2026-10-21T10:11:32.4318258+01:00 BAT: 
+2026-10-21T10:11:32.4318258+01:00 BAT: setlocal
+2026-10-21T10:11:32.4318258+01:00 BAT: 
+2026-10-21T10:11:32.4318258+01:00 BAT: set ROOT=%~dp0..
+2026-10-21T10:11:32.4318258+01:00 BAT: 
+2026-10-21T10:11:32.4318258+01:00 BAT: set PATH=%ROOT%\bin;%PATH%
+2026-10-21T10:11:32.4478697+01:00 BAT: 
+2026-10-21T10:11:32.4496035+01:00 BAT: cd /d "%ROOT%\bin"
+2026-10-21T10:11:32.4511327+01:00 BAT: 
+2026-10-21T10:11:32.4526588+01:00 BAT: set CUDA_VISIBLE_DEVICES=0
+2026-10-21T10:11:32.4541910+01:00 BAT: 
+2026-10-21T10:11:32.4562188+01:00 BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 92160 --n-predict 32768 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0
+2026-10-21T10:11:37.8921882+01:00 LlamaServer restarted, waiting model load...
+2026-10-21T10:11:46.5404187+01:00 wait Unable to connect to the remote server
+2026-10-21T10:11:51.5415062+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:11:59.6088829+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:04.6196366+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:10.6670439+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:15.6682820+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:22.2023856+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:27.2076831+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:33.2392146+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:38.2450236+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:44.7725648+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:49.7827255+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:12:55.7987835+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:00.8089012+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:07.3640510+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:12.3703187+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:18.3861727+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:23.3886302+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:29.9388502+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:34.9477319+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:41.5210316+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:46.5270849+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:53.0425818+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:13:58.0472358+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:04.5897684+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:09.6058667+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:16.1543378+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:21.1642698+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:27.2006490+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:32.2150985+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:38.7461119+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:43.7473851+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:50.2957779+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:14:55.3088546+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:15:01.8713485+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:15:06.8713984+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:15:14.9498591+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:15:19.9561997+01:00 wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:15:24.9606677+01:00 health 200 {"status":"ok"}
+2026-10-21T10:15:25.0302683+01:00 model_path=D:\Models\gguf\Qwen_Qwen3.6-35B-A3B-IQ2_S.gguf
+2026-10-21T10:15:25.0302683+01:00 model_alias=qwen3.6-35b
+2026-10-21T10:15:25.0302683+01:00 speculative=none
+2026-10-21T10:15:27.1380723+01:00 bench completion_tokens=128 elapsed_s=2.09 rough_tps=61.32
+2026-10-21T10:15:27.1545501+01:00 bench preview=
+2026-10-21T10:15:27.1622373+01:00 timings={"cache_n":0,"prompt_n":25,"prompt_ms":468.811,"prompt_per_token_ms":18.75244,"prompt_per_second":53.326393791954544,"predicted_n":128,"predicted_ms":1611.004,"predicted_per_token_ms":12.58596875,"predicted_per_second":79.45355815379726}
+2026-10-21T10:15:27.1622373+01:00 === done ===

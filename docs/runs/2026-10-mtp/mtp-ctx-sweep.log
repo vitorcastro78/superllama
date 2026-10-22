@@ -1,0 +1,21 @@
+2026-10-21T10:19:11.4491511+01:00 === MTP ctx sweep start ===
+2026-10-21T10:19:11.4522568+01:00 --- try CtxSize=16384 ---
+2026-10-21T10:19:24.5770606+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:19:29.6711376+01:00   health=ok status=Running gpu=0, 11598, 12288 | 1, 519, 8192
+2026-10-21T10:19:29.7441708+01:00   n_ctx=16384 model=Qwen3.6-35B-A3B-UD-IQ2_M.gguf
+2026-10-21T10:19:30.2617476+01:00   bench predicted_tok/s=104,5 draft_n=10 accepted=10 prompt_tok/s=41,6
+2026-10-21T10:19:30.2647496+01:00   PASS lastGood=16384
+2026-10-21T10:19:30.2657842+01:00 --- try CtxSize=32768 ---
+2026-10-21T10:19:43.4678424+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:19:49.4990710+01:00   wait status=Paused The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:19:54.4991680+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:01.5305487+01:00   wait status=Paused The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:06.5462932+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:13.0778471+01:00   wait status=Paused The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:18.0830763+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:24.6277816+01:00   wait status=Paused The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:29.6352201+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:36.6883782+01:00   wait status=Paused The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:41.6940193+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:48.2201304+01:00   wait status=Paused The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:20:53.2341234+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.

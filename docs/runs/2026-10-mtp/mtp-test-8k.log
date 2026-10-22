@@ -1,0 +1,12 @@
+2026-10-21T10:17:09.8375019+01:00 === MTP 8k test start ===
+2026-10-21T10:17:09.8651221+01:00 Backup=C:\LlamaServer\config\backup-pre-mtp-8k-20261021-101709
+2026-10-21T10:17:10.1975619+01:00 BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 8192 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0
+2026-10-21T10:17:22.6933549+01:00 status=Running wait=The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:17:27.7003961+01:00 status=Running health=200 {"status":"ok"}
+2026-10-21T10:17:29.3169191+01:00 model=D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf
+2026-10-21T10:17:29.3325470+01:00 n_ctx=8192
+2026-10-21T10:17:29.3325470+01:00 spec=none
+2026-10-21T10:17:31.1568952+01:00 bench tokens=160 sec=1.8 rough_tps=88.89
+2026-10-21T10:17:31.1623755+01:00 bench preview=
+2026-10-21T10:17:31.1623755+01:00 timings={"cache_n":0,"prompt_n":29,"prompt_ms":372.425,"prompt_per_token_ms":12.842241379310344,"prompt_per_second":77.86802711955427,"predicted_n":160,"predicted_ms":1418.011,"predicted_per_token_ms":8.86256875,"predicted_per_second":112.83410354362556,"draft_n":118,"draft_n_accepted":99}
+2026-10-21T10:17:31.1623755+01:00 === MTP 8k test done (left running; backup=C:\LlamaServer\config\backup-pre-mtp-8k-20261021-101709) ===

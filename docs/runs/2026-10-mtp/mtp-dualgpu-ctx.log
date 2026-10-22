@@ -1,0 +1,51 @@
+2026-10-21T10:31:44.8029189+01:00 === dual-GPU MTP ctx sweep ===
+2026-10-21T10:31:44.8185445+01:00 Backup=C:\LlamaServer\config\backup-pre-dualgpu-mtp-20261021-103144
+2026-10-21T10:31:44.8185445+01:00 --- dual-GPU try ctx=16384 ---
+2026-10-21T10:31:52.3810709+01:00   BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 16384 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0,CUDA1 --split-mode layer --tensor-split 12,8 --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0
+2026-10-21T10:31:59.4127965+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:31:59.4281090+01:00   DETECTED OOM/CUDA fail
+2026-10-21T10:31:59.4437374+01:00   ERR 0.00.051.802 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+2026-10-21T10:31:59.4437374+01:00   ERR 0.00.277.009 W srv  llama_server: -----------------
+2026-10-21T10:31:59.4437374+01:00   ERR 0.00.277.013 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+2026-10-21T10:31:59.4437374+01:00   ERR 0.00.277.015 W srv  llama_server: this can be a security risk (cross-origin attacks)
+2026-10-21T10:31:59.4437374+01:00   ERR 0.00.277.016 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+2026-10-21T10:31:59.4437374+01:00   ERR 0.00.277.016 W srv  llama_server: -----------------
+2026-10-21T10:31:59.4437374+01:00   ERR 0.00.281.887 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T10:31:59.4592421+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T10:31:59.4619187+01:00   ERR 0.03.346.839 E CUDA error: out of memory
+2026-10-21T10:31:59.4634465+01:00   ERR 0.03.346.843 E   current device: 0, in function ggml_backend_cuda_buffer_set_tensor at D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:914
+2026-10-21T10:31:59.4649756+01:00   ERR 0.03.346.843 E   cudaMemcpyAsync((char *) tensor->data + offset, data, size, cudaMemcpyHostToDevice, ((cudaStream_t)0x2))
+2026-10-21T10:31:59.4665064+01:00   ERR 
+2026-10-21T10:31:59.4690592+01:00   FAIL at ctx=16384
+2026-10-21T10:31:59.4705885+01:00 === settle lastGood=16384 ===
+2026-10-21T10:32:07.8969126+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:32:15.4748468+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:32:15.4748468+01:00   DETECTED OOM/CUDA fail
+2026-10-21T10:32:15.4748468+01:00   ERR 0.00.051.612 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+2026-10-21T10:32:15.4748468+01:00   ERR 0.00.265.494 W srv  llama_server: -----------------
+2026-10-21T10:32:15.4748468+01:00   ERR 0.00.265.498 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+2026-10-21T10:32:15.4748468+01:00   ERR 0.00.265.499 W srv  llama_server: this can be a security risk (cross-origin attacks)
+2026-10-21T10:32:15.4748468+01:00   ERR 0.00.265.499 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+2026-10-21T10:32:15.4909848+01:00   ERR 0.00.265.500 W srv  llama_server: -----------------
+2026-10-21T10:32:15.4934877+01:00   ERR 0.00.277.813 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T10:32:15.4935400+01:00   ERR 0.05.508.143 E CUDA error: out of memory
+2026-10-21T10:32:15.4935400+01:00   ERR 0.05.508.147 E   current device: 0, in function ggml_backend_cuda_buffer_set_tensor at D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:914
+2026-10-21T10:32:15.4935400+01:00   ERR 0.05.508.147 E   cudaMemcpyAsync((char *) tensor->data + offset, data, size, cudaMemcpyHostToDevice, ((cudaStream_t)0x2))
+2026-10-21T10:32:15.5005439+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T10:32:15.5005439+01:00   ERR 
+2026-10-21T10:32:15.5005439+01:00 settle failed - restoring single-GPU 16k from backup
+2026-10-21T10:32:15.8347920+01:00   wait status=Running The remote server returned an error: (503) Server Unavailable.
+2026-10-21T10:32:15.8347920+01:00   DETECTED OOM/CUDA fail
+2026-10-21T10:32:15.8347920+01:00   ERR 0.00.051.612 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+2026-10-21T10:32:15.8504229+01:00   ERR 0.00.265.494 W srv  llama_server: -----------------
+2026-10-21T10:32:15.8504229+01:00   ERR 0.00.265.498 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+2026-10-21T10:32:15.8504229+01:00   ERR 0.00.265.499 W srv  llama_server: this can be a security risk (cross-origin attacks)
+2026-10-21T10:32:15.8504229+01:00   ERR 0.00.265.499 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+2026-10-21T10:32:15.8504229+01:00   ERR 0.00.265.500 W srv  llama_server: -----------------
+2026-10-21T10:32:15.8504229+01:00   ERR 0.00.277.813 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T10:32:15.8661246+01:00   ERR 0.05.508.143 E CUDA error: out of memory
+2026-10-21T10:32:15.8661246+01:00   ERR 0.05.508.147 E   current device: 0, in function ggml_backend_cuda_buffer_set_tensor at D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:914
+2026-10-21T10:32:15.8661246+01:00   ERR 0.05.508.147 E   cudaMemcpyAsync((char *) tensor->data + offset, data, size, cudaMemcpyHostToDevice, ((cudaStream_t)0x2))
+2026-10-21T10:32:15.8767493+01:00   ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T10:32:15.8787947+01:00   ERR 
+2026-10-21T10:32:17.4746338+01:00 === done ===

@@ -1,0 +1,2 @@
+﻿super-qwen-66k-nommap-dual-single
+UseRouter=0 -m + layer split 12,8 on CUDA0,CUDA1 (no router child)

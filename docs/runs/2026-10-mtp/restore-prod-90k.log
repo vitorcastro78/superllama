@@ -1,0 +1,29 @@
+=== restore prod 90k 2026-10-21T12:28:40.9287099+01:00 ===
+BAT="C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen_Qwen3.6-35B-A3B-IQ2_S.gguf" --alias qwen3.6-35b --host 127.0.0.1 --port 11434 -ngl 99 -c 92160 --n-predict 32768 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0 --split-mode none --main-gpu 0 --fit off --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server
+wait Unable to connect to the remote server

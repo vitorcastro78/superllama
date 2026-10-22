@@ -1,0 +1,25 @@
+2026-10-21T11:13:13.8736700+01:00 === dual-GPU tensor-split 10,6 ===
+2026-10-21T11:13:13.8891752+01:00 Backup=C:\LlamaServer\config\backup-pre-dual-10-6-20261021-111313
+2026-10-21T11:13:21.1861382+01:00 BAT: "C:\LlamaServer\bin\llama-server.exe" -m "D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf" --alias qwen3.6-35b-mtp --host 127.0.0.1 --port 11434 -ngl 99 -c 16384 --n-predict 2048 --parallel 1 -fa on --threads 8 -ctk turbo4 -ctv turbo3 --device CUDA0,CUDA1 --split-mode layer --tensor-split 10,6 --main-gpu 0 --fit on --cache-prompt --cache-reuse 512 --slot-prompt-similarity 0.30 --jinja --reasoning auto --reasoning-effort medium --reasoning-budget 4096 --media-path "D:/" --webui --spec-type draft-mtp --spec-draft-n-max 2 --spec-draft-p-min 0.0 --fit-target 1024
+2026-10-21T11:13:23.1865420+01:00 status=Running wait=The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:13:27.2042115+01:00 status=Running wait=The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:13:31.2353710+01:00 status=Running wait=The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:13:31.2353710+01:00 OOM/CUDA fail
+2026-10-21T11:13:31.2509970+01:00 ERR 0.00.272.653 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+2026-10-21T11:13:31.2509970+01:00 ERR 0.00.272.655 W srv  llama_server: -----------------
+2026-10-21T11:13:31.2645033+01:00 ERR 0.00.282.947 I srv    load_model: loading model 'D:\Models\gguf\Qwen3.6-35B-A3B-UD-IQ2_M.gguf'
+2026-10-21T11:13:31.2645033+01:00 ERR 0.02.745.156 I srv    load_model: [spec] reserving 191.00 MiB on CUDA0 for the speculative model and context
+2026-10-21T11:13:31.2801335+01:00 ERR 0.02.745.162 I srv    load_model: [spec] reserving 193.06 MiB on CUDA1 for the speculative model and context
+2026-10-21T11:13:31.2801335+01:00 ERR 0.02.745.163 I srv    load_model: [spec] estimated memory usage of MTP context is 384.06 MiB
+2026-10-21T11:13:31.2801335+01:00 ERR 0.03.393.086 I operator (): MoE cache fit kept stock placement because the complete model already meets the fit targets
+2026-10-21T11:13:31.2801335+01:00 ERR D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:115: CUDA error
+2026-10-21T11:13:31.2801335+01:00 ERR 0.05.804.569 E CUDA error: out of memory
+2026-10-21T11:13:31.2801335+01:00 ERR 0.05.804.574 E   current device: 0, in function ggml_backend_cuda_buffer_set_tensor at D:\src\llama.cpp\ggml\src\ggml-cuda\ggml-cuda.cu:914
+2026-10-21T11:13:31.2801335+01:00 ERR 0.05.804.574 E   cudaMemcpyAsync((char *) tensor->data + offset, data, size, cudaMemcpyHostToDevice, ((cudaStream_t)0x2))
+2026-10-21T11:13:31.2801335+01:00 ERR 
+2026-10-21T11:13:31.2956401+01:00 Restoring single-GPU from C:\LlamaServer\config\backup-pre-dual-10-6-20261021-111313
+2026-10-21T11:13:40.5336529+01:00 restore wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:13:43.5459416+01:00 restore wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:13:46.5613767+01:00 restore wait The remote server returned an error: (503) Server Unavailable.
+2026-10-21T11:13:49.5896664+01:00 restored health ok
+2026-10-21T11:13:51.1598145+01:00 === FAIL - restored single GPU ===

@@ -1,0 +1,2 @@
+super-qwen-90k-turbo4k-turbo3v
+IQ2_S turbo4/turbo3 ctx 92160
