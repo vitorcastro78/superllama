@@ -16,6 +16,36 @@ If your machine is “good enough” (≈6–12 GB VRAM, 16–32 GB RAM), st
 
 ---
 
+## The saga: why SuperLlama looks the way it does
+
+We did not start with a polished installer. We started with a normal desktop (**RTX 3060 12 GB + Ryzen 5 + 32 GB RAM**) and a simple goal: **a local assistant that stays up as a Windows service, with enough context to be useful for real work** — not a 2k-token toy demo.
+
+That goal collided with reality:
+
+1. **Stock llama.cpp + “sensible” quants** gave us a model that fit… until we asked for long context. KV cache ate the 12 GB card alive.
+2. **Bigger quants / denser models** felt smarter for a few turns, then OOMed or crawled once the conversation grew.
+3. **Dual-GPU experiments** (3060 + 3050, tensor split, dual VRAM profiles) looked promising on paper. In practice: more moving parts, harder restarts, and not enough win for a daily driver. We kept the hardware; production stayed **single GPU (CUDA0)**.
+4. **MoE + CPU experts** (`--n-cpu-moe`) unlocked smaller cards (~6 GB) and taught us that “usable on a laptop” is a different profile than “usable as the house server”.
+5. **mmap / load-mode / Q4_K_M / coding-oriented presets** — each left a backup folder under `C:\LlamaServer\config\backup-pre-*`. Most were stepping stones, not destinations.
+6. **MTP / speculative decode** (`draft-mtp`, Unsloth MTP GGUFs, 8k→16k→32k→64k sweeps) sometimes boosted decode, sometimes fought VRAM and stability. It remains an **optional preset**, not the default, because production has to survive overnight without babysitting.
+7. **TurboQuant KV** (`turbo2` / `turbo3` / `turbo4`) was the breakthrough for *our* hardware: compress the cache hard enough that **~90k context** on **IQ2_S Qwen3.6-35B-A3B** became a boring, reliable service instead of a weekend science project.
+
+Along the way we also had to productize the boring parts nobody ships in a random PR branch: **NSSM Windows service**, **Manager + Tray**, **llama.ui**, **Inference Monitor**, rollback scripts, and finally **one Setup.exe** so the next machine (or the next person with a mid-range GPU) does not repeat the archaeology.
+
+So SuperLlama is not “yet another llama.cpp fork page”. It is the **survivors’ kit** from that saga:
+
+| We tried | What we learned | What shipped |
+|----------|-----------------|--------------|
+| Dual GPU / fancy splits | Complexity > benefit for 12+8 GB | Production = **one GPU** |
+| Chase max tok/s with MTP | Cool when it works; fragile as default | Optional `server-mtp.env` |
+| Chase max quality quants | Context dies first on 12 GB | **IQ2_S MoE** + TurboQuant KV |
+| Nightly upstream only | Flags move; breaks your service | Pin a **TurboQuant-capable** build; refuse to package without `turbo4` |
+| Manual folder copy | Easy to desync bin/config/UI | **Single installer** + shared `config/` presets |
+
+If you only have a modest PC: **skip our dead ends**. Install the Release build, start from `config/server.env` (or the 6 GB MoE preset), and raise context only after the model fits. The backups and failed sweeps were the tuition; the presets are the diploma.
+
+---
+
 ## Reference hardware (what we actually measure on)
 
 | Piece | Spec |
