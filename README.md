@@ -27,8 +27,8 @@ That goal collided with reality:
 3. **Dual-GPU experiments** (3060 + 3050, tensor split, dual VRAM profiles) looked promising on paper. In practice: more moving parts, harder restarts, and not enough win for a daily driver. We kept the hardware; production stayed **single GPU (CUDA0)**.
 4. **MoE + CPU experts** (`--n-cpu-moe`) unlocked smaller cards (~6 GB) and taught us that “usable on a laptop” is a different profile than “usable as the house server”.
 5. **mmap / load-mode / Q4_K_M / coding-oriented presets** — each left a backup folder under `C:\LlamaServer\config\backup-pre-*`. Most were stepping stones, not destinations.
-6. **MTP / speculative decode** (`draft-mtp`, Unsloth MTP GGUFs, 8k→16k→32k→64k sweeps) sometimes boosted decode, sometimes fought VRAM and stability. It remains an **optional preset**, not the default, because production has to survive overnight without babysitting.
-7. **TurboQuant KV** (`turbo2` / `turbo3` / `turbo4`) was the breakthrough for *our* hardware: compress the cache hard enough that **~90k context** on **IQ2_S Qwen3.6-35B-A3B** became a boring, reliable service instead of a weekend science project.
+6. **MTP / speculative decode** (`draft-mtp`, Unsloth MTP GGUFs, 8k→16k→32k→64k sweeps) delivered real speed — **peaks ~108–113 tok/s** at 8k–16k — but dual-GPU and high-ctx MTP OOMed or slowed once we stacked CPU MoE. It remains an **optional preset**, not the default, because production has to survive overnight without babysitting.
+7. **TurboQuant KV** (`turbo2` / `turbo3` / `turbo4`) was the breakthrough for *our* hardware: compress the cache hard enough that **~90k context** on **IQ2_S Qwen3.6-35B-A3B** became a boring, reliable service at **~80 tok/s peak** (typical chat ~45–60) instead of a weekend science project.
 
 Along the way we also had to productize the boring parts nobody ships in a random PR branch: **NSSM Windows service**, **Manager + Tray**, **llama.ui**, **Inference Monitor**, rollback scripts, and finally **one Setup.exe** so the next machine (or the next person with a mid-range GPU) does not repeat the archaeology.
 
@@ -64,25 +64,47 @@ These are **not** datacenter numbers. They are what a normal desktop can sustain
 
 ## Measured results (RTX 3060 12 GB)
 
-Production profile: **Qwen3.6-35B-A3B IQ2_S**, TurboQuant KV **K=`turbo4` / V=`turbo3`**, **ctx 92 160**, Flash Attention on, single slot, CUDA0 only.
+All numbers below are from **this reference box** (CUDA0 = 3060 12 GB). Decode = `predicted_per_second` from the server API / `eval time` in logs (generation only, not prompt eval).
 
-Sampled from live `llama-server` logs on this machine (short interactive turns + longer prompts):
+### Production default (what we leave running)
 
-| Phase | Typical range | Notes |
-|-------|---------------|--------|
-| **Generation (decode)** | **~45–60 tok/s** | Short chat often ~50–56 tok/s; longer fills trend ~41–50 tok/s |
-| **Prompt eval (cached / mid size)** | **~300–1100 tok/s** | Depends on cache hit + prompt size |
-| **Long prompt ingest (~4k–10k tokens)** | **~1000–1200 tok/s** while filling | Full ~10k prompt eval ≈ **~1050 tok/s** |
+**Qwen3.6-35B-A3B IQ2_S** · KV `turbo4`/`turbo3` · **ctx 92 160** · FlashAttn · **no** speculative · single GPU
 
-Example lines (production service):
+| Metric | Result | Source |
+|--------|--------|--------|
+| **Peak / short-bench decode** | **~80 tok/s** (**79.5** API bench, **~79** peak in service logs) | Prod revert bench + overnight logs |
+| **Typical interactive decode** | **~45–60 tok/s** (busy-day average ≈ **58**) | Live `slot print_timing` |
+| **Longer generations** | **~41–56 tok/s** | e.g. 459 tok @ 56.6; 968 tok @ 41 |
+| **Prompt eval (mid / cached)** | **~300–1100 tok/s** | Depends on cache hit |
+| **Long prompt ingest (~4k–10k)** | **~1000–1200 tok/s** fill · full ~10k ≈ **~1050 tok/s** | Production service |
 
-- decode `133` tokens → **51.3 tok/s**
-- decode `459` tokens → **56.6 tok/s**
-- prompt `10824` tokens → **~1050 tok/s** prompt eval, then decode **~46 tok/s**
+That **~80 tok/s** peak is the important headline for “stock” SuperLlama: same 90k-capable profile, no MTP GGUF required.
 
-**Takeaway for modest PCs:** TurboQuant KV is what makes **~90k context** practical on **12 GB**. Without it, the same context budget usually does not fit (or forces harsh trade-offs). IQ2_S MoE keeps weights small enough that layers stay on GPU while KV stays compressible.
+### MTP speculative (`draft-mtp`) — optional, faster, fussier
 
-Speeds vary with driver, power limit, concurrent GPU load, and prompt-cache hits. Treat the table as a **reproducible ballpark**, not a leaderboard claim.
+**Unsloth MTP GGUF** `Qwen3.6-35B-A3B-UD-IQ2_M` · `--spec-type draft-mtp` · single GPU (unless noted)
+
+| Setup | Decode tok/s | Notes |
+|-------|----------------|-------|
+| **MTP · ctx 8k · turbo4/turbo3 · draft-n-max 2** | **Peak ~113 tok/s** (API `predicted_per_second`; wall rough ≈ 89) | Best speed we measured · draft accept 99/118 |
+| **MTP · ctx 16k** | **~105–107 tok/s** (sweep **104.5**, re-bench **106.8**) | Stable sweet spot on 12 GB |
+| **MTP · ctx 16k** (other runs) | **~86 tok/s** | Still well above plain IQ2_S mid-load |
+| **MTP · ctx 32k–90k + `--n-cpu-moe 20`** | **~34–45 tok/s** | Fits higher ctx; experts on CPU → slower than 8k/16k MTP |
+| **MTP · Q4_K_XL** | **~12–16 tok/s** | Heavier quant lost; not worth it here |
+| **MTP · dual GPU / draft on CUDA1** | **FAIL (CUDA OOM)** | Abandoned for daily use |
+
+Headline: **MTP peaked around 108–113 tok/s** on this 3060; **production without MTP still hits ~80 tok/s** on short turns while keeping **90k context**.
+
+### What we rejected (so you do not repeat it)
+
+| Experiment | Outcome |
+|------------|---------|
+| Dual-GPU MTP / tensor-split for speed | OOM or flaky restarts · rolled back to CUDA0 |
+| Chase 64k+ MTP without CPU MoE | Unstable / OOM on 12 GB |
+| Q4_K_XL + MTP | Accepted drafts but **~4–7× slower** than IQ2_M MTP |
+| MTP as Windows-service default | Great benches; more fragile overnight than IQ2_S 90k |
+
+**Takeaway for modest PCs:** use **production IQ2_S + TurboQuant (~80 tok/s peak, 90k ctx)** as the daily driver. Turn on **MTP** (`config/server-mtp.env`) when you want **~100–110+ tok/s** and can live with a smaller ctx / MTP GGUF. Speeds move with driver, power limit, and GPU load — treat these as **logged runs on our hardware**, not a contest board.
 
 ---
 
