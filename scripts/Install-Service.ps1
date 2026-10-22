@@ -47,10 +47,14 @@ $nssm = Find-Nssm
 $svc = 'LlamaServer'
 
 if (Get-Service $svc -EA SilentlyContinue) {
-  & $nssm stop $svc confirm 2>$null
+  # nssm writes to stderr even on benign "not started" — don't abort
+  $prevEap = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
+  & $nssm stop $svc confirm 2>$null | Out-Null
   Start-Sleep 1
-  & $nssm remove $svc confirm 2>$null
-  Start-Sleep 1
+  & $nssm remove $svc confirm 2>$null | Out-Null
+  Start-Sleep 2
+  $ErrorActionPreference = $prevEap
 }
 
 & $nssm install $svc $env:ComSpec '/c' "`"$bat`""

@@ -23,7 +23,14 @@ Bins e o Setup **não** vão para o git — publicam-se em **GitHub Releases**.
 - `Profile=super-qwen-90k-turbo4k-turbo3v`
 - Paths de modelo como placeholders (`C:\Models\gguf\...`) — edita no host após instalar
 
-Preset opcional GPUs ~6GB: `config/server-moe-6gb.env` + `models-preset-moe-6gb.ini`.
+Presets opcionais:
+
+- GPUs ~6GB: `config/server-moe-6gb.env` + `models-preset-moe-6gb.ini`
+- **MTP + TurboQuant**: `config/server-mtp.env` + `models-preset-mtp.ini`
+  - Modelo: `Qwen3.6-35B-A3B-UD-IQ2_M.gguf` (Unsloth MTP-GGUF) — **não** o IQ2_S de produção
+  - `ExtraArgs=--spec-type draft-mtp --spec-draft-n-max 1`
+  - KV `turbo3`/`turbo2`, ctx 32k (mais VRAM para MTP heads + draft)
+  - O binário TurboQuant já expõe `draft-mtp`; falta só o GGUF com heads MTP
 
 ## Build do binário CUDA TurboQuant
 
